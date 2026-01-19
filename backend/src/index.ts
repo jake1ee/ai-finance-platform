@@ -1,5 +1,5 @@
 import "dotenv/config";
-// import "./config/passport.config";
+import "./config/passport.config";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import passport from "passport";
@@ -8,16 +8,14 @@ import { HTTPSTATUS } from "./config/http.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import connctDatabase from "./config/database.config";
 import { asyncHandler } from "./middlewares/asyncHandler.meddlerware";
+import { passportAuthenticateJwt } from "./config/passport.config";
 import authRoutes from "./routes/auth.route";
-// import { BadRequestException } from "./utils/app-error";
-// import { asyncHandler } from "./middlewares/asyncHandler.middlerware";
-// import { passportAuthenticateJwt } from "./config/passport.config";
-// import userRoutes from "./routes/user.route";
-// import transactionRoutes from "./routes/transaction.route";
+import userRoutes from "./routes/user.route";
+import transactionRoutes from "./routes/transaction.route";
+import reportRoutes from "./routes/report.route";
+import analyticsRoutes from "./routes/analytics.route";
 // import { initializeCrons } from "./cron";
-// import reportRoutes from "./routes/report.route";
 // import { getDateRange } from "./utils/date";
-// import analyticsRoutes from "./routes/analytics.route";
 
 const app = express();
 const BASE_PATH = Env.BASE_PATH;
@@ -25,7 +23,7 @@ const BASE_PATH = Env.BASE_PATH;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
 app.use(
   cors({
@@ -44,10 +42,10 @@ app.get(
 );
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
-// app.use(`${BASE_PATH}/user`, passportAuthenticateJwt, userRoutes);
-// app.use(`${BASE_PATH}/transaction`, passportAuthenticateJwt, transactionRoutes);
-// app.use(`${BASE_PATH}/report`, passportAuthenticateJwt, reportRoutes);
-// app.use(`${BASE_PATH}/analytics`, passportAuthenticateJwt, analyticsRoutes);
+app.use(`${BASE_PATH}/user`, passportAuthenticateJwt, userRoutes);
+app.use(`${BASE_PATH}/transaction`, passportAuthenticateJwt, transactionRoutes);
+app.use(`${BASE_PATH}/report`, passportAuthenticateJwt, reportRoutes);
+app.use(`${BASE_PATH}/analytics`, passportAuthenticateJwt, analyticsRoutes);
 
 app.use(errorHandler);
 
