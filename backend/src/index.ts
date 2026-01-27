@@ -10,10 +10,11 @@ import connctDatabase from "./config/database.config";
 import { asyncHandler } from "./middlewares/asyncHandler.meddlerware";
 import { passportAuthenticateJwt } from "./config/passport.config";
 import authRoutes from "./routes/auth.route";
-import userRoutes from "./routes/user.route";
+import userRoutes from "./routes/user.route"; 
 import transactionRoutes from "./routes/transaction.route";
 import reportRoutes from "./routes/report.route";
 import analyticsRoutes from "./routes/analytics.route";
+import { initializeCrons } from "./cron";
 // import { initializeCrons } from "./cron";
 // import { getDateRange } from "./utils/date";
 
@@ -52,9 +53,9 @@ app.use(errorHandler);
 app.listen(Env.PORT, async () => {
   await connctDatabase();
 
-//   if (Env.NODE_ENV === "development") {
-//     await initializeCrons();
-//   }
+  if (Env.NODE_ENV === "development") {
+    await initializeCrons();
+  }
 
   console.log(`Server is running on port ${Env.PORT} in ${Env.NODE_ENV} mode`);
 });

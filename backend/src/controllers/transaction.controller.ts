@@ -4,7 +4,7 @@ import { asyncHandler } from "../middlewares/asyncHandler.meddlerware";
 
 import { TransactionTypeEnum } from "../models/transaction.model";
 import { bulkDeleteTransactionSchema, bulkTransactionSchema, createTransactionSchema, transactionIdSchema, updateTransactionSchema } from "../validators/transaction.validator";
-import { bulkDeleteTransactionService, bulkTransactionService, createTransactionService, deleteTransactionService, duplicateTransactionService, getAllTransactionService, getTransactionByIdService, updateTransactionService } from "../services/transaction.service";
+import { bulkDeleteTransactionService, bulkTransactionService, createTransactionService, deleteTransactionService, duplicateTransactionService, getAllTransactionService, getTransactionByIdService, scanReceiptService, updateTransactionService } from "../services/transaction.service";
 
 export const createTransactionController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -133,15 +133,15 @@ export const bulkTransactionController = asyncHandler(
   }
 );
 
-// export const scanReceiptController = asyncHandler(
-//   async (req: Request, res: Response) => {
-//     const file = req?.file;
+export const scanReceiptController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const file = req?.file;
 
-//     const result = await scanReceiptService(file);
+    const result = await scanReceiptService(file);
 
-//     return res.status(HTTPSTATUS.OK).json({
-//       message: "Reciept scanned successfully",
-//       data: result,
-//     });
-//   }
-// );
+    return res.status(HTTPSTATUS.OK).json({
+      message: "Reciept scanned successfully",
+      data: result,
+    });
+  }
+);
