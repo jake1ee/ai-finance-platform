@@ -23,7 +23,7 @@ const scheduleJob = (name:string, time:string, job:Function) => {
 
 export const startJobs = () => {
   return [
-    scheduleJob("Transactions", "*/1 * * * *", processRecurringTransactions),
+    scheduleJob("Transactions", "*5 0 * * *", processRecurringTransactions),
 
     // //run 2:30am every first of the month
     // scheduleJob("Reports", "30 2 1 * *", processReportJob),

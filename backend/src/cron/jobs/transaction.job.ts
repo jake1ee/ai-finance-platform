@@ -25,8 +25,7 @@ export const processRecurringTransactions = async () => {
       try {
         await session.withTransaction(
           async () => {
-            console.log(tx, "transaction");
-            await TransactionModel.create(
+             await TransactionModel.create(
               [
                 {
                   ...tx.toObject(),

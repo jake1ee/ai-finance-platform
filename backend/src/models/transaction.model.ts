@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { convertToCents, convertToDollarUnit } from "../utils/fotmat-currency";
+import { convertToCents, convertToMYRUnit } from "../utils/format-currency";
 
 
 export enum TransactionStatusEnum {
@@ -68,7 +68,7 @@ const transactionSchema = new Schema<TransactionDocument>(
       type: Number,
       required: true,
       set: (value: number) => convertToCents(value),
-      get: (value: number) => convertToDollarUnit(value),
+      get: (value: number) => convertToMYRUnit(value),
     },
 
     description: {
